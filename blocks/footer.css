@@ -1,0 +1,24 @@
+.footer {
+  padding: 60px 0;
+  border-top: 1px rgba(33, 33, 33, 0.4) solid;
+  max-width: 1280px;
+}
+
+.footer__content {
+  max-width: 1280px;
+  margin: 0 20px;
+}
+
+.footer__title {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  opacity: 70%;
+}
+
+@media screen and (max-width: 627px) {
+  .footer__content {
+    max-width: 282px;
+    margin: 0 auto;
+  }
+}
