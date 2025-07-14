@@ -1,17 +1,17 @@
 .card {
   list-style-type: none;
-  max-width: 413px;
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .card__image {
   height: 413px;
-  width: 413px;
   display: flex;
   flex-direction: column;
   object-fit: cover;
   display: block;
   border-radius: 8px;
+  margin-bottom: 12px;
 }
 
 .card__content {
@@ -27,26 +27,32 @@
   border: none;
   background-color: transparent;
   opacity: 40%;
+  cursor: pointer;
+}
+
+.card__like-btn:hover {
+  opacity: 1;
 }
 
 .card__title {
-  margin: 12px 0 0 0;
+  margin: 0;
+  max-width: 353px;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 627px) {
   .card__image {
     height: 288px;
     width: 288px;
-    margin: 0 auto;
   }
 
   .card__title {
     font-size: 16px;
-    padding-left: 62px;
-  }
-
-  .card {
-    display: flex;
-    flex-direction: column;
+    max-width: 235px;
   }
 }

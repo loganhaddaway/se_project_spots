@@ -40,3 +40,7 @@ An image sharing web application that is responsive for all devices.
 # Deployment
 
 https://loganhaddaway.github.io/se_project_spots/
+
+# Project Recap Video
+
+https://drive.google.com/file/d/10-VxZ6ApOOAwK7ma68vt1k9Xzw-nllep/view?usp=drive_link
