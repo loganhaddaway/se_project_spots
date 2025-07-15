@@ -14,10 +14,6 @@
 }
 
 @media screen and (max-width: 627px) {
-  .cards {
-    max-width: 288px;
-  }
-
   .cards__list {
     grid-template-columns: repeat(auto-fit, 288px);
   }
