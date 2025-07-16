@@ -21,9 +21,9 @@
 }
 
 .card__like-btn {
-  background-image: url(../images/Like\ Icon.svg);
-  width: 23px;
+  background-image: url(../images/Union.svg);
   height: 20px;
+  width: 23px;
   border: none;
   background-color: transparent;
   opacity: 40%;
@@ -40,6 +40,7 @@
   font-size: 20px;
   line-height: 1.2;
   font-weight: 500;
+  font-color: #212121;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
