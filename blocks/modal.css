@@ -1,5 +1,7 @@
 .modal {
+  opacity: 0;
   visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -13,6 +15,7 @@
 }
 
 .modal_is-opened {
+  opacity: 1;
   visibility: visible;
 }
 
