@@ -60,9 +60,10 @@ function handleEditProfileSubmit(evt) {
   evt.preventDefault();
   console.log("submitting");
   profileNameEl.textContent = editProfileNameInput.value;
-  profileDescriptionEl.textContent = editProfileDescriptionInput.value
+  profileDescriptionEl.textContent = editProfileDescriptionInput.value;
   evt.target.reset();
   closeModal(editProfileModal);
+}
 
 editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 
@@ -70,6 +71,7 @@ function handleAddCardSubmit(evt) {
   evt.preventDefault();
   console.log(imageInput.value);
   console.log(captionInput.value);
+  evt.target.reset();
   closeModal(newPostModal);
 }
 
