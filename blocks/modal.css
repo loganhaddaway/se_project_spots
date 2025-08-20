@@ -100,10 +100,10 @@
   align-items: center;
   font-weight: 500;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .modal__image {
-  max-width: 80vw;
   max-width: 80vh;
   width: 100%;
   object-fit: contain;
@@ -128,7 +128,7 @@
     font-size: 20px;
   }
 
-  .media__close_type_preview {
+  .modal__close-btn_type_preview {
     top: -48px;
     right: 0px;
   }
