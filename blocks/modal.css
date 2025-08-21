@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .modal_type_preview {
@@ -24,6 +24,7 @@
 }
 
 .modal__container {
+  box-sizing: border-box;
   position: relative;
   max-width: 730px;
   width: 100%;
@@ -42,10 +43,12 @@
   height: 40px;
   border: none;
   cursor: pointer;
+  opacity: 0.4;
 }
 
 .modal__close-btn:hover {
   background: transparent url(../images/closeicon.svg) center no-repeat;
+  opacity: 1;
 }
 
 .modal__close_type_preview {
@@ -72,6 +75,11 @@
   border-color: #21212166;
   border-radius: 8px;
   border-style: solid;
+  border-width: 1px;
+}
+
+.modal__input:hover {
+  opacity: 0.8;
 }
 
 .modal__label {
@@ -101,6 +109,10 @@
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
+}
+
+.modal__submit-btn:hover {
+  opacity: 0.8;
 }
 
 .modal__image {
@@ -139,5 +151,18 @@
 
   .modal__submit-btn {
     max-width: none;
+  }
+
+  .modal__container {
+    padding: 22px 12px 12px;
+  }
+
+  .modal__close-btn {
+    top: 12px;
+    right: 12px;
+  }
+
+  .modal__label {
+    margin-bottom: 24px;
   }
 }
