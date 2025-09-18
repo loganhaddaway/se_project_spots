@@ -148,7 +148,14 @@ function handleAddCardSubmit(evt) {
   };
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
+
   evt.target.reset();
+
+  const inputList = Array.from(evt.target.querySelectorAll(".modal__input"));
+  inputList.forEach((inputEl) => hideInputError(evt.target, inputEl));
+  const submitButton = evt.target.querySelector(".modal__submit-btn");
+  toggleButtonState(inputList, submitButton);
+
   closeModal(newPostModal);
 }
 
