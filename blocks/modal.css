@@ -54,6 +54,8 @@
   top: 0;
   right: -48px;
   background-image: url("../images/closeiconw.svg");
+  width: 40px;
+  height: 40px;
 }
 
 .modal__title {
@@ -109,6 +111,10 @@
   font-weight: 500;
 }
 
+.modal__error_visible {
+  color: red;
+}
+
 .modal__submit-btn {
   background-color: rgba(0, 0, 0);
   color: #fff;
@@ -156,11 +162,6 @@
   font-size: 20px;
   line-height: 120%;
   font-weight: 500;
-}
-
-.modal__close-btn_type_preview {
-  width: 40px;
-  height: 40px;
 }
 
 @media screen and (max-width: 627px) {

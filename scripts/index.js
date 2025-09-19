@@ -30,50 +30,63 @@ const initialCards = [
 ];
 
 const editProfileBtn = document.querySelector(".profile__edit-btn");
-
 const editProfileModal = document.querySelector("#edit-profile-modal");
-
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
-
 const editProfileForm = editProfileModal.querySelector(".modal__form");
-
 const editProfileNameInput = editProfileModal.querySelector(
   "#profile-name-input"
 );
-
 const editProfileDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
 );
 
 const newPostBtn = document.querySelector(".profile__add-btn");
-
 const newPostModal = document.querySelector("#new-post-modal");
-
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 
 const profileNameEl = document.querySelector(".profile__name");
-
 const profileDescriptionEl = document.querySelector(".profile__description");
 
 const addCardFormElement = newPostModal.querySelector(".modal__form");
-
 const imageInput = newPostModal.querySelector("#card-image-input");
-
 const captionInput = newPostModal.querySelector("#card-caption-input");
 
 const previewModal = document.querySelector("#preview-modal");
-
 const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
-
 const previewImageEl = previewModal.querySelector(".modal__image");
-
 const previewCaptionEl = previewModal.querySelector(".modal__caption");
 
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
-
 const cardsList = document.querySelector(".cards__list");
+
+function handleEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_is-opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
+}
+
+function handleOverlayClick(evt) {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(evt.currentTarget);
+  }
+}
+
+function openModal(modal) {
+  modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", handleEscape);
+  modal.addEventListener("mousedown", handleOverlayClick);
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", handleEscape);
+  modal.removeEventListener("mousedown", handleOverlayClick);
+}
 
 function getCardElement(data) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -104,13 +117,7 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function openModal(modal) {
-  modal.classList.add("modal_is-opened");
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_is-opened");
-}
+// ---------- EVENT HANDLERS ----------
 
 editProfileBtn.addEventListener("click", function () {
   openModal(editProfileModal);
@@ -132,9 +139,17 @@ newPostCloseBtn.addEventListener("click", function () {
 
 function handleEditProfileSubmit(evt) {
   evt.preventDefault();
+
   profileNameEl.textContent = editProfileNameInput.value;
   profileDescriptionEl.textContent = editProfileDescriptionInput.value;
+
   evt.target.reset();
+
+  const inputList = Array.from(evt.target.querySelectorAll(".modal__input"));
+  inputList.forEach((inputEl) => hideInputError(evt.target, inputEl, settings));
+  const submitButton = evt.target.querySelector(".modal__submit-btn");
+  toggleButtonState(inputList, submitButton, settings);
+
   closeModal(editProfileModal);
 }
 
@@ -142,6 +157,7 @@ editProfileForm.addEventListener("submit", handleEditProfileSubmit);
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
+
   const inputValues = {
     name: captionInput.value,
     link: imageInput.value,
@@ -152,9 +168,9 @@ function handleAddCardSubmit(evt) {
   evt.target.reset();
 
   const inputList = Array.from(evt.target.querySelectorAll(".modal__input"));
-  inputList.forEach((inputEl) => hideInputError(evt.target, inputEl));
+  inputList.forEach((inputEl) => hideInputError(evt.target, inputEl, settings));
   const submitButton = evt.target.querySelector(".modal__submit-btn");
-  toggleButtonState(inputList, submitButton);
+  toggleButtonState(inputList, submitButton, settings);
 
   closeModal(newPostModal);
 }
