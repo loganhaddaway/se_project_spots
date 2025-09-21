@@ -38,7 +38,7 @@
 }
 
 .card__like-btn {
-  background-image: url(../images/Union.svg);
+  background-image: url(../images/Union.svg) center/contain no-repeat;
   height: 20px;
   width: 23px;
   border: none;
