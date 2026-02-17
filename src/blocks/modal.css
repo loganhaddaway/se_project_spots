@@ -64,9 +64,26 @@
   font-size: 32px;
 }
 
+#delete-modal .modal__title {
+  text-align: center;
+}
+
 .modal__form {
   display: flex;
   flex-direction: column;
+}
+
+#delete-modal .modal__form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+#delete-modal .modal__close-btn {
+  top: 0;
+  right: -48px;
 }
 
 .modal__input {
@@ -139,6 +156,10 @@
 
 .modal__submit-btn:hover {
   opacity: 0.8;
+}
+
+.modal__submit-btn_type_delete {
+  background-color: #ff6565;
 }
 
 .modal__image {
