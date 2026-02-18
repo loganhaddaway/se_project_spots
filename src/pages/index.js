@@ -28,14 +28,15 @@ const editProfileSubmitBtnText = editProfileSubmitBtn.textContent;
 const newPostBtn = document.querySelector(".profile__add-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
-const newPostSubmitBtn = addCardFormElement.querySelector(".modal__submit-btn");
-const newPostSubmitBtnText = newPostSubmitBtn.textContent;
 
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
 const profileAvatarEl = document.querySelector(".profile__avatar");
 
 const addCardFormElement = newPostModal.querySelector(".modal__form");
+const newPostSubmitBtn = addCardFormElement.querySelector(".modal__submit-btn");
+const newPostSubmitBtnText = newPostSubmitBtn.textContent;
+
 const imageInput = newPostModal.querySelector("#card-image-input");
 const captionInput = newPostModal.querySelector("#card-caption-input");
 
