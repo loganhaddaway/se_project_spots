@@ -1,6 +1,12 @@
 import "./index.css";
 import { enableValidation, settings } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
+import {
+  enableValidation,
+  settings,
+  hideInputError,
+  toggleButtonState,
+} from "../scripts/validation.js";
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -258,18 +264,28 @@ function handleAddCardSubmit(evt) {
     link: imageInput.value,
   };
 
-  const cardElement = getCardElement(inputValues);
-  cardsList.prepend(cardElement);
+  api
+    .addCard(inputValues)
+    .then((createdCard) => {
+      const cardElement = getCardElement(createdCard);
+      cardsList.prepend(cardElement);
 
-  evt.target.reset();
+      evt.target.reset();
 
-  const inputList = Array.from(evt.target.querySelectorAll(".modal__input"));
-  inputList.forEach((inputEl) => hideInputError(evt.target, inputEl, settings));
-  toggleButtonState(inputList, newPostSubmitBtn, settings);
+      const inputList = Array.from(
+        evt.target.querySelectorAll(".modal__input")
+      );
+      inputList.forEach((inputEl) =>
+        hideInputError(evt.target, inputEl, settings)
+      );
+      toggleButtonState(inputList, newPostSubmitBtn, settings);
 
-  closeModal(newPostModal);
-
-  renderLoading(false, newPostSubmitBtn, newPostSubmitBtnText, "Saving...");
+      closeModal(newPostModal);
+    })
+    .catch(console.error)
+    .finally(() => {
+      renderLoading(false, newPostSubmitBtn, newPostSubmitBtnText, "Saving...");
+    });
 }
 
 addCardFormElement.addEventListener("submit", handleAddCardSubmit);
