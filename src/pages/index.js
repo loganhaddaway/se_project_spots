@@ -1,11 +1,9 @@
 import "./index.css";
-import { enableValidation, settings } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
 import {
   enableValidation,
   settings,
-  hideInputError,
-  toggleButtonState,
+  resetValidation,
 } from "../scripts/validation.js";
 
 const api = new Api({
@@ -67,6 +65,9 @@ const deleteModalCloseBtn = deleteModal.querySelector(".modal__close-btn");
 const deleteForm = deleteModal.querySelector("#delete-form");
 const deleteSubmitBtn = deleteForm.querySelector('button[type="submit"]');
 const deleteSubmitBtnText = deleteSubmitBtn.textContent;
+const deleteCancelBtn = deleteModal.querySelector(
+  '.modal__submit-btn[type="button"]'
+);
 
 let selectedCardElement = null;
 let selectedCardId = null;
@@ -122,8 +123,14 @@ function getCardElement(data) {
   cardTitleEl.textContent = data.name;
 
   const cardLikeBtnEl = cardElement.querySelector(".card__like-btn");
+
+  // Set initial like state
+  if (data.isLiked) {
+    cardLikeBtnEl.classList.add("card__like-btn_active");
+  }
+
   cardLikeBtnEl.addEventListener("click", () => {
-    if (!data._id) return; // safety: local cards won't have an id yet
+    if (!data._id) return;
 
     const isLiked = cardLikeBtnEl.classList.contains("card__like-btn_active");
 
@@ -133,9 +140,6 @@ function getCardElement(data) {
 
     likeRequest
       .then((updatedCard) => {
-        // keep local data in sync
-        data.isLiked = updatedCard.isLiked;
-
         if (updatedCard.isLiked) {
           cardLikeBtnEl.classList.add("card__like-btn_active");
         } else {
@@ -183,9 +187,11 @@ api
 // ---------- EVENT HANDLERS ----------
 
 editProfileBtn.addEventListener("click", () => {
-  openModal(editProfileModal);
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+
+  resetValidation(editProfileForm, settings);
+  openModal(editProfileModal);
 });
 
 editProfileCloseBtn.addEventListener("click", () => {
@@ -193,6 +199,7 @@ editProfileCloseBtn.addEventListener("click", () => {
 });
 
 newPostBtn.addEventListener("click", () => {
+  resetValidation(addCardFormElement, settings);
   openModal(newPostModal);
 });
 
@@ -201,6 +208,7 @@ newPostCloseBtn.addEventListener("click", () => {
 });
 
 avatarModalBtn.addEventListener("click", () => {
+  resetValidation(avatarForm, settings);
   openModal(avatarModal);
 });
 
@@ -226,18 +234,6 @@ function handleEditProfileSubmit(evt) {
     .then((data) => {
       profileNameEl.textContent = data.name;
       profileDescriptionEl.textContent = data.about;
-
-      evt.target.reset();
-
-      const inputList = Array.from(
-        evt.target.querySelectorAll(".modal__input")
-      );
-      inputList.forEach((inputEl) =>
-        hideInputError(evt.target, inputEl, settings)
-      );
-
-      const submitButton = evt.target.querySelector(".modal__submit-btn");
-      toggleButtonState(inputList, submitButton, settings);
 
       closeModal(editProfileModal);
     })
@@ -271,14 +267,7 @@ function handleAddCardSubmit(evt) {
       cardsList.prepend(cardElement);
 
       evt.target.reset();
-
-      const inputList = Array.from(
-        evt.target.querySelectorAll(".modal__input")
-      );
-      inputList.forEach((inputEl) =>
-        hideInputError(evt.target, inputEl, settings)
-      );
-      toggleButtonState(inputList, newPostSubmitBtn, settings);
+      resetValidation(addCardFormElement, settings);
 
       closeModal(newPostModal);
     })
@@ -302,6 +291,9 @@ function handleAvatarSubmit(evt) {
       profileAvatarEl.alt = data.name;
 
       evt.target.reset();
+
+      resetValidation(avatarForm, settings);
+
       closeModal(avatarModal);
     })
     .catch(console.error)
@@ -313,6 +305,12 @@ function handleAvatarSubmit(evt) {
 avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 deleteModalCloseBtn.addEventListener("click", () => {
+  selectedCardElement = null;
+  selectedCardId = null;
+  closeModal(deleteModal);
+});
+
+deleteCancelBtn.addEventListener("click", () => {
   selectedCardElement = null;
   selectedCardId = null;
   closeModal(deleteModal);
